@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Madrid Fan Site - Betting</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Betting Page</h1>
+        <nav>
+            <ul>
+                <li><a href="/index" >Maison</a></li>
+                <li class="dropdown">
+                    <a href="javascript:void(0)" class="dropbtn">Equipe</a>
+                    <div class="dropdown-content">
+                        <a href="/team">Notre Équipe</a>
+                        <a href="/OtherTeam">L'équipe adverse</a>
+                        <a href="/add_team">Ajouter une Équipe</a>
+                        <a href="/delete_team">Supprimer une Équipe</a>
+                        <a href="/update_team">Modifier une Équipe</a>
+                    </div>
+                <li><a href="/joueurs">Joueurs</a></li>
+                <li><a href="/betting" class="active"> Paris</a>    
+                  </li>
+                <li></li>
+            </ul>
+        </nav>
+    </header>
+
+    <ul> 
+        % if paris_info :
+            % for pari in paris_info:
+                <li class="pari">
+                    <span class="li-id">ID du Pari: ${pari['paris_id']}</span>, 
+                    <span class="Supporteur">Supporteur: ${pari['supporteur_nom']}</span>, 
+                    <span class="li-match">Match: ${pari['equipe_domicile']} vs ${pari['equipe_exterieur']}</span> 
+                    <span class="ID">(ID: ${pari['match_id']}), </span> 
+                    <span class="li-mise">Mise: ${pari['mise']}</span>, 
+                    <span class="li-resultat">Résultat Prédit: ${pari['Resultat_prédit']}</span>
+                </li>
+            % endfor
+        % else:
+            <li class="rien">Aucun pari enregistré</li>
+        % endif
+    </ul>
+
+
+
+<style>
+
+ul {
+    list-style-type: none; 
+    padding: 0;
+    margin: 0;
+}
+
+.pari {
+    margin-top: 60px;
+    background-color: rgba(49, 33, 90, 0.73);;
+    padding: 10px;
+    margin-bottom: 5px; 
+    font-family: Arial, sans-serif;
+    width: 60%;
+    margin-left: 350px;
+}
+
+.pari:hover {
+        background-color: #e8e8e8; 
+    }
+
+.li-id {
+    color: white;
+    font-weight: bold;
+}
+
+.li-match {
+    color: #007BFF;
+}
+
+.li-mise {
+    color: #28a745;
+}
+
+.Supporteur{
+    color: white;
+}
+
+.li-resultat {
+    color: yellow;
+}
+
+.ID{
+
+    color: white;
+}
+.rien {
+    background-color: #ccc; 
+}
+.rien {
+    margin-top: 50px;
+    margin-left: 600px;
+    width: 25%;
+    background-color: #e74c3c; 
+    color: white;
+    text-align: center;
+    padding: 20px;
+    font-weight: bold;
+}
+
+main {
+    width: 80%;
+    max-width: 800px;
+    margin: 20px 0;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    background: #f8f8f8;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.8); /* Fond blanc semi-transparent pour le contenu principal */
+
+}
+
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: url('/images/arrière.jpg    ') no-repeat center center fixed; 
+    /* Assurez-vous que le chemin vers l'image est correct */
+    background-size: cover;
+    color: #333;
+}
+
+
+</style>    
+</body>
+</html>

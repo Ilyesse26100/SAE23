@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Madrid Fan Site - Home</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header>
+        <h1> Réal Madrid Bets</h1>
+        <nav>
+            <ul>
+                <li><a href="/index" class="active">Maison</a></li>
+                <li class="dropdown">
+                    <a href="javascript:void(0)" class="dropbtn">Equipe</a>
+                    <div class="dropdown-content">
+                        <a href="/team">Notre Équipe</a>
+                        <a href="/OtherTeam">L'équipe adverse</a>
+                        <a href="/add_team">Ajouter une Équipe</a>
+                        <a href="/delete_team">Supprimer une Équipe</a>
+                        <a href="/update_team">Modifier une Équipe</a>
+                    </div>
+                <li class="dropdown">
+                        <a href="javascript:void(0)" class="dropbtn">Joueurs</a>
+                        <div class="dropdown-content">
+                            <a href="/add_joueur">Ajouter un joueur</a>
+                            <a href="/delete_joueur">supprime le joueur</a>
+                            <a href="/update_joueur">Mettre à jour le joueur</a>
+                        </div>    
+                <li><a href="/betting"> Paris</a>    
+                  </li>
+                <li></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h2>Prochains matchs</h2>
+        <div class="upcoming-matches">
+            % for match in upcoming_matches:
+                <div class="match">
+                    <p><strong>Date:</strong> ${match['date']}</p>
+                    <p><strong>Équipe à domicile:</strong> ${match['equipe_domicile']}</p>
+                    <p><strong>Équipe à l'extérieur:</strong> ${match['equipe_exterieur']}</p>
+                </div>
+            % endfor
+        </div>
+        <div>
+            <a href="javascript:void(0)" class="button" id="toggle-history-button" onclick="toggleMatchHistory()">Voir l'historique des matches</a>
+        </div>
+        <div id="match-history" style="display: none;"></div>
+    </main>
+    <script>
+          let isHistoryVisible = false;
+
+function toggleMatchHistory() {
+    const historyDiv = document.getElementById('match-history');
+    const button = document.getElementById('toggle-history-button');
+
+    if (isHistoryVisible) {
+        historyDiv.style.display = 'none';
+        button.textContent = 'Voir l\'historique des matches';
+        isHistoryVisible = false;
+    } else {
+        fetch('/match_history')
+            .then(response => response.text())
+            .then(data => {
+                historyDiv.innerHTML = data;
+                historyDiv.style.display = 'block';
+                button.textContent = 'Masquer l\'historique des matches';
+                isHistoryVisible = true;
+            })
+            .catch(error => console.error('Erreur:', error));
+    }
+}
+    </script>
+
+<style>
+
+main {
+    padding: 20px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.8);
+    margin: 20px auto;
+    border-radius: 8px;
+    width: 80%;
+}
+
+.upcoming-matches {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.match {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin: 10px;
+    padding: 15px;
+    width: calc(33% - 40px);
+    box-sizing: border-box;
+}
+
+.match p {
+    margin: 0 0 10px;
+}
+
+.rien {
+    color: #FF0000;
+    text-align: center;
+    margin-top: 20px;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: url('/images/arrière.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #333;
+}
+
+
+
+.button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #00529B;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: #003f7f;
+        }
+
+
+</style>
+</body>
+</html>

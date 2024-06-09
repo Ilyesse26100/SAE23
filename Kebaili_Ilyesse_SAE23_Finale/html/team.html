@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site de fans du Real Madrid - Équipe</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .equipe {
+            font-weight: bold;
+            color:red; /* Changer la couleur du texte en noir */
+            background-color: rgba(255, 255, 255, 0.8); /* Ajouter un fond blanc avec une légère transparence */
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+        }
+
+        .no-equipes {
+            color: #999;
+            background-color: #f8f8f8;
+            font-style: italic;
+            text-align: center;
+        }
+
+        main {
+            width: 80%;
+            max-width: 1300px;
+            margin: 20px auto;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('/images/arrière.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+        }
+
+        button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 10px;
+            font-size: 14px;
+            color: white;
+            background-color: #00529B;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #003f7f;
+        }
+
+        .team-image {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            margin: 20px auto;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Équipe du Real Madrid</h1>
+        <nav>
+            <ul>
+                <li><a href="/">Accueil</a></li>
+                <li class="dropdown">
+                    <a href="javascript:void(0)" class="dropbtn active">Équipe</a>
+                    <div class="dropdown-content">
+                        <a href="/team">Notre Équipe</a>
+                        <a href="/OtherTeam">L'équipe adverse</a>
+                        <a href="/add_team">Ajouter une Équipe</a>
+                        <a href="/delete_team">Supprimer une Équipe</a>
+                        <a href="/update_team">Modifier une Équipe</a>
+
+                    </div>
+                    <li><a href="/joueurs">Joueurs</a></li>
+                    <li><a href="/betting"> Paris</a>    
+                      </li>
+                    <li></li>
+                </ul>
+            </nav>
+    </header>
+    <main>
+        <h2>Équipes</h2>
+        <ul>
+            % if equipes:
+                % for equipe in equipes:
+                    <li class="equipe">${equipe['nom']} - Stade: ${equipe['stade']} - Entraîneur: ${equipe['entraineur']} - Victoires: ${equipe['victoires']} - Défaites: ${equipe['defaites']} - Nuls: ${equipe['nuls']}
+                        <form action="/show_joueurs" method="get">
+                            <input type="hidden" name="equipe_id" value="${equipe['equipe_id']}">
+                            <input type="hidden" name="page_context" value="${page_context}">
+                            <button type="submit">Voir les joueurs</button>
+                        </form>
+                    </li>
+                % endfor
+            % else:
+                <li class="no-equipes">Aucune équipe enregistrée.</li>
+            % endif
+        </ul>
+        % if joueurs:
+            <div id="joueurs">
+                <h2>Joueurs de l'équipe</h2>
+                <ul>
+                    % for joueur in joueurs:
+                        <li>${joueur['nom']} ${joueur['prenom']} - Poste: ${joueur['poste']}</li>
+                    % endfor
+                </ul>
+            </div>
+        % endif
+    </main>
+    % if page_context == 'team':
+            <img src="/images/equipe.jpg" alt="Équipe du Real Madrid" class="team-image">
+        % endif
+</body>
+</html>

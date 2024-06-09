@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supprimer une Équipe</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        main {
+            padding: 20px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.8);
+            margin: 20px auto;
+            border-radius: 8px;
+            width: 80%;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('/images/arrière.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+        }
+        button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #00529B;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #003f7f;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Supprimer une Équipe</h1>
+        <nav>
+            <ul>
+                <li><a href="/">Accueil</a></li>
+                <li class="dropdown">
+                    <a href="javascript:void(0)" class="dropbtn">Équipe</a>
+                    <div class="dropdown-content">
+                        <a href="/team">Notre Équipe</a>
+                        <a href="/OtherTeam">L'équipe adverse</a>
+                        <a href="/add_team">Ajouter une Équipe</a>
+                        <a href="/delete_team">Supprimer une Équipe</a>
+                        <a href="/update_team">Modifier une Équipe</a>
+                    </div>
+                    <li><a href="/joueurs">Joueurs</a></li>
+                    <li><a href="/betting"> Paris</a>    
+                      </li>
+                    <li></li>
+                </ul>
+            </nav>
+    </header>
+    <main>
+        <form action="/delete_team" method="post">
+            <label for="equipe_id">ID de l'équipe :</label>
+            <input type="number" id="equipe_id" name="equipe_id" required>
+            <button type="submit">Supprimer</button>
+        </form>
+        % if error_message:
+            <p style="color:red;">${error_message}</p>
+        % endif
+        <h2>Équipes existantes</h2>
+        <ul>
+            % for equipe in equipes:
+                <li>ID: ${equipe['equipe_id']} - Nom: ${equipe['nom']}</li>
+            % endfor
+        </ul>
+    </main>
+</body>
+</html>
